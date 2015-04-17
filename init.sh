@@ -12,10 +12,8 @@ EASYRSA="./easyrsa --pki-dir=$PKI_DIR"
 INIT_PKI="init-pki"
 BUILD_CA="build-ca"
 GEN_DH="gen-dh"
-BUILD_CLIENT="build-client-full"
-BUILD_SERVER="build-server-full"
 
-DN_NAME="perceptron"
+COMMON_NAME="perceptron"
 
 pushd $RSA_ROOT
 
@@ -26,7 +24,7 @@ fi
 
 if [ ! -f $CA_CRT ];
 then
-    echo $DN_NAME | $EASYRSA $BUILD_CA
+    echo $COMMON_NAME | $EASYRSA $BUILD_CA
 fi
 
 if [ ! -f $DH_PEM ];

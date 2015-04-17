@@ -1,16 +1,21 @@
 #!/bin/bash
+set -e
 
-RSA_ROOT="easy-rsa/easyrsa3"
-EASYRSA="./easyrsa"
+ROOT=$PWD
+RSA_ROOT="$ROOT/easy-rsa/easyrsa3"
+
+PKI_DIR="$ROOT/pki"
+DH_PEM="$PKI_DIR/dh.pem"
+CA_CRT="$PKI_DIR/ca.crt"
+
+EASYRSA="./easyrsa --pki-dir=$PKI_DIR"
 INIT_PKI="init-pki"
 BUILD_CA="build-ca"
 GEN_DH="gen-dh"
 BUILD_CLIENT="build-client-full"
 BUILD_SERVER="build-server-full"
 
-PKI_DIR="pki"
-DH_PEM="$PKI_DIR/dh.pem"
-CA_CRT="$PKI_DIR/ca.crt"
+DN_NAME="perceptron"
 
 pushd $RSA_ROOT
 
@@ -21,7 +26,7 @@ fi
 
 if [ ! -f $CA_CRT ];
 then
-    echo "perceptron" | $EASYRSA $BUILD_CA
+    echo $DN_NAME | $EASYRSA $BUILD_CA
 fi
 
 if [ ! -f $DH_PEM ];

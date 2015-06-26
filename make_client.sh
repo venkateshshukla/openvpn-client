@@ -12,10 +12,12 @@ RSA_ROOT="${ROOT}/easy-rsa/easyrsa3"
 PKI_DIR="${ROOT}/pki"
 OUT_DIR="${ROOT}/out"
 
+CA_CRT="${PKI_DIR}/ca.crt"
+DH_PEM="$PKI_DIR/dh.pem"
+
 EASYRSA="./easyrsa --pki-dir=${PKI_DIR}"
 BUILD_CLIENT="build-client-full"
 
-CA_CRT="${PKI_DIR}/ca.crt"
 CLIENT_KEY="${PKI_DIR}/private/${1}.key"
 CLIENT_CERT="${PKI_DIR}/issued/${1}.crt"
 CLIENT_CONF="${ROOT}/sample/client.conf"

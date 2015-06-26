@@ -48,6 +48,8 @@ pushd $RSA_ROOT
 $EASYRSA $BUILD_SERVER $1
 popd
 
+mkdir -p $OUT_DIR
+
 cat $SERVER_CONF > $TMP_OUT_FILE
 echo "<ca>" >> $TMP_OUT_FILE
 cat $CA_CRT >> $TMP_OUT_FILE

@@ -47,3 +47,20 @@ fi
 pushd $RSA_ROOT
 $EASYRSA $BUILD_SERVER $1
 popd
+
+cat $SERVER_CONF > $TMP_OUT_FILE
+echo "<ca>" >> $TMP_OUT_FILE
+cat $CA_CRT >> $TMP_OUT_FILE
+echo "</ca>" >> $TMP_OUT_FILE
+echo "<dh>" >> $TMP_OUT_FILE
+cat $DH_PEM >> $TMP_OUT_FILE
+echo "</dh>" >> $TMP_OUT_FILE
+echo "<cert>" >> $TMP_OUT_FILE
+cat $SERVER_CERT >> $TMP_OUT_FILE
+echo "</cert>" >> $TMP_OUT_FILE
+echo "<key>" >> $TMP_OUT_FILE
+cat $SERVER_KEY >> $TMP_OUT_FILE
+echo "</key>" >> $TMP_OUT_FILE
+cat $TMP_OUT_FILE > $OUT_FILE
+
+rm $TMP_OUT_FILE

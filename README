@@ -1,0 +1,67 @@
+Aim
+====
+
+Script to setup openvpn server and generate clients in single commands.
+
+Dependencies
+============
+
+1. Openssl
+
+Use `yum install openssl`, `dnf install openssl` or `apt-get install openssl` as
+required.
+
+2. Openvpn
+
+Use `yum install openvpn`, `dnf install openvpn` or `apt-get install openvpn` as
+required.
+
+Preparatory Steps
+=================
+
+For server setup
+----------------
+
+1. Enable IP Forwarding
+
+$ echo 'net.ipv4.ip_forward = 1' >> /etc/sysctl.conf
+$ sysctl -p
+
+2. Enable traffic via internet
+
+$ iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
+$ iptables-save
+
+3. Edit sample/server.conf (Optional)
+
+Edit server.conf to change things like port (line 1), logfile name (line 10 12),
+log verbosity (line 11) and server config (line 4).
+
+For client setup
+----------------
+
+1. Edit sample/client.ovpn
+
+Edit client.ovpn to set verbosity(line 6) and remote ip and port (line 4).
+
+Make sure server and client have same ports.
+
+Steps to run
+============
+
+1. Clone the repository.
+2. Run preparatory steps as given above.
+3. Run `git submodule init`.
+4. Run `git submodule update`.
+5. Run `./init.sh` and fill required details.
+6. To make a server config :
+	1. Run `./make_server.sh <server_name>`.
+	2. Fill the asked details.
+	3. You would get a file named server_name.conf in 'out' folder.
+	4. Copy the file to /etc/openvpn folder.
+	5. Restart openvpn by using `sudo service openvpn restart`.
+7. To make a client config:
+	1. Run `./make_client.sh <client_name>`.
+	2. Fill in asked details.
+	3. You would get a file named client_name.ovpn in 'out' folder.
+	4. Use the file to connect to the server using command `sudo openvpn client_name.ovpn`.
